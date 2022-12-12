@@ -4,8 +4,8 @@ const reviewSchema = mongoose.Schema({
   notation: Number,
   content: String,
   creation_Date: Date,
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
-  parkId: { type: mongoose.Schema.Types.ObjectId, ref: "parking" },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+  //   parkId: { type: mongoose.Schema.Types.ObjectId, ref: "parking" },
 });
 
 const Review = mongoose.model("reviews", reviewSchema);
