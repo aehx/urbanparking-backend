@@ -78,14 +78,4 @@ router.post("/signin", (req, res) => {
   );
 });
 
-router.get("/", (req, res) => {
-  User.find().then((data) => {
-    res.json({ result: true, data });
-  });
-});
-
-router.get("/", (req, res) => {
-  res.json({ log: "TEST 123" });
-});
-
 module.exports = router;
