@@ -12,18 +12,20 @@ router.post("/post", (req, res) => {
     return;
   }
   User.findOne({ token: req.body.token }).then((data) => {
+    console.log(data);
     if (data === null) {
       res.json({ result: false, error: "User not found" });
     }
-  });
-  const newReview = new Review({
-    author: "6396d2a96cb214f11a5a2c69",
-    content: req.body.content,
-    notation: req.body.notation,
-    creation_Date: new Date(),
-  });
-  newReview.save().then((data) => {
-    console.log(data);
+    const newReview = new Review({
+      author: data._id,
+      content: req.body.content,
+      notation: req.body.notation,
+      creation_Date: new Date(),
+    });
+    newReview.save().then((data) => {
+      res.json({ data: data });
+      console.log(data);
+    });
   });
 });
 
