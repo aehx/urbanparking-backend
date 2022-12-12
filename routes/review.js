@@ -4,28 +4,63 @@ const { checkbody } = require("../module/checkbody");
 const Review = require("../models/review");
 const User = require("../models/user");
 
-// ROUTE POST REVIEW
+// ROUTE
+
+// POST REVIEW
 
 router.post("/post", (req, res) => {
   if (!checkbody(req.body, ["notation", "content"])) {
     res.json({ result: false, error: "Missing or empty fields" });
     return;
   }
-  User.findOne({ token: req.body.token }).then((data) => {
-    console.log(data);
-    if (data === null) {
+  User.findOne({ token: req.body.token }).then((user) => {
+    if (user === null) {
       res.json({ result: false, error: "User not found" });
     }
     const newReview = new Review({
-      author: data._id,
+      author: user._id,
       content: req.body.content,
       notation: req.body.notation,
       creation_Date: new Date(),
     });
     newReview.save().then((data) => {
       res.json({ data: data });
-      console.log(data);
     });
+  });
+});
+
+// DELETE
+
+router.delete("/", (req, res) => {
+  if (!checkBody(req.body, ["token", "reviewId"])) {
+    res.json({ result: false, error: "Missing or empty fields" });
+    return;
+  }
+
+  User.findOne({ token: req.body.token }).then((user) => {
+    if (user === null) {
+      res.json({ result: false, error: "User not found" });
+      return;
+    }
+
+    Review.findById(req.body.reviewId)
+      .populate("author")
+      .then((review) => {
+        if (!review) {
+          res.json({ result: false, error: "Review not found" });
+          return;
+        } else if (String(review.author._id) !== String(user._id)) {
+          res.json({
+            result: false,
+            error: "Review can only be deleted by its author",
+          });
+          return;
+        }
+
+        Review.deleteOne({ _id: review._id }).then(() => {
+          res.json({ result: true });
+        });
+      });
   });
 });
 
