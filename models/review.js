@@ -4,7 +4,7 @@ const reviewSchema = mongoose.Schema({
   notation: Number,
   content: String,
   creation_Date: Date,
-  author: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
 });
 
 const Review = mongoose.model("reviews", reviewSchema);
