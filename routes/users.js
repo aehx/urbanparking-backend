@@ -84,4 +84,8 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/", (req, res) => {
+  res.json({ log: "TEST 123" });
+});
+
 module.exports = router;
