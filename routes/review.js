@@ -29,6 +29,24 @@ router.post("/post", (req, res) => {
   });
 });
 
+// GET REVIEW
+
+router.get("/all/:token", (req, res) => {
+  User.findOne({ token: req.params.token }).then((user) => {
+    if (user === null) {
+      res.json({ result: false, error: "User not found" });
+      return;
+    }
+
+    Review.find() // Populate and select specific fields to return (for security purposes)
+      .populate("author")
+      // .sort({ createdAt: 'desc' })
+      .then((review) => {
+        res.json({ result: true, review });
+      });
+  });
+});
+
 // DELETE
 
 router.delete("/", (req, res) => {
