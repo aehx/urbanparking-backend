@@ -38,9 +38,8 @@ router.get("/all/:token", (req, res) => {
       return;
     }
 
-    Review.find() // Populate and select specific fields to return (for security purposes)
+    Review.find()
       .populate("author")
-      // .sort({ createdAt: 'desc' })
       .then((review) => {
         res.json({ result: true, review });
       });
