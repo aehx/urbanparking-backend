@@ -42,8 +42,8 @@ router.post("/signup", (req, res) => {
           res.json({
             result: true,
             token: data.token,
-            firstname: data.firstname,
             username: data.username,
+            firstname: data.firstname,
           });
         });
       } else {
@@ -68,8 +68,8 @@ router.post("/signin", (req, res) => {
         res.json({
           result: true,
           token: data.token,
-          firstname: data.firstname,
           username: data.username,
+          firstname: data.firstname,
         });
       } else {
         res.json({ result: false, error: "User not found" });
