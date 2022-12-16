@@ -13,6 +13,7 @@ router.post("/signup", (req, res) => {
     return;
   }
   console.log(req.body);
+  console.log(req);
   const {
     username,
     firstname,
@@ -26,6 +27,8 @@ router.post("/signup", (req, res) => {
   User.findOne({ username: { $regex: new RegExp(username, "i") } }).then(
     (data) => {
       if (data === null) {
+        console.log(req.body);
+        console.log(req);
         const hash = bcrypt.hashSync(password, 10);
         const newUser = new User({
           username,
