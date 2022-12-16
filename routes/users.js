@@ -22,6 +22,7 @@ router.post("/signup", (req, res) => {
     postal,
     password,
   } = req.body;
+  console.log(req.body);
   User.findOne({ username: { $regex: new RegExp(username, "i") } }).then(
     (data) => {
       if (data === null) {
@@ -79,16 +80,16 @@ router.post("/signin", (req, res) => {
 });
 router.get("/update/:token", (req, res) => {
   const { token } = req.params;
-  // const {
-  //   username,
-  //   firstname,
-  //   lastname,
-  //   email,
-  //   city,
-  //   address,
-  //   postal,
-  //   password,
-  // } = req.body;
+  const {
+    username,
+    firstname,
+    lastname,
+    email,
+    city,
+    address,
+    postal,
+    password,
+  } = req.body;
   User.findOne({ token: req.params.token }).then((data) => {
     res.json({ result: true, data });
     // User.updateOne({token:token}).then()
