@@ -77,7 +77,21 @@ router.post("/signin", (req, res) => {
     }
   );
 });
-router.get("/update", (req, res) => {
-  res.send("ok");
+router.get("/update/:token", (req, res) => {
+  const { token } = req.params;
+  // const {
+  //   username,
+  //   firstname,
+  //   lastname,
+  //   email,
+  //   city,
+  //   address,
+  //   postal,
+  //   password,
+  // } = req.body;
+  User.findOne({ token: req.params.token }).then((data) => {
+    res.json({ result: true, data });
+    // User.updateOne({token:token}).then()
+  });
 });
 module.exports = router;
