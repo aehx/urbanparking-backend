@@ -80,7 +80,7 @@ router.post("/signin", (req, res) => {
   );
 });
 
-// UPDATE USER
+// UPDATE USER INFOS
 
 router.put("/update/:token", (req, res) => {
   const { token } = req.params;
