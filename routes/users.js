@@ -77,5 +77,7 @@ router.post("/signin", (req, res) => {
     }
   );
 });
-
+router.get("/update", (req, res) => {
+  res.send("ok");
+});
 module.exports = router;
