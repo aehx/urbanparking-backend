@@ -8,12 +8,11 @@ const User = require("../models/user");
 // SIGNUP USER
 
 router.post("/signup", (req, res) => {
+  console.log(req.body);
   if (!checkbody(req.body, ["username", "password", "email"])) {
     res.json({ result: false, error: "missing or empty fields" });
     return;
   }
-  console.log(req.body);
-  console.log(req);
   const {
     username,
     firstname,
@@ -93,6 +92,10 @@ router.get("/update/:token", (req, res) => {
     postal,
     password,
   } = req.body;
+  for (let key in req.body) {
+    if (!key || key === "") {
+    }
+  }
   User.findOne({ token: req.params.token }).then((data) => {
     res.json({ result: true, data });
     // User.updateOne({token:token}).then()
