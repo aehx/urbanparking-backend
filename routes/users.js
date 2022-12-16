@@ -12,6 +12,7 @@ router.post("/signup", (req, res) => {
     res.json({ result: false, error: "missing or empty fields" });
     return;
   }
+  console.log(req.body);
   const {
     username,
     firstname,
@@ -22,7 +23,6 @@ router.post("/signup", (req, res) => {
     postal,
     password,
   } = req.body;
-  console.log(req.body);
   User.findOne({ username: { $regex: new RegExp(username, "i") } }).then(
     (data) => {
       if (data === null) {
