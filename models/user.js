@@ -1,10 +1,5 @@
 const mongoose = require("mongoose");
 
-const testSchema = mongoose.Schema({
-  blabla: String,
-  bloublou: Number,
-});
-
 const userSchema = mongoose.Schema({
   username: String,
   firstname: String,
@@ -14,6 +9,7 @@ const userSchema = mongoose.Schema({
   address: String,
   postal: Number,
   password: String,
+  favoris: [String],
   token: String,
 });
 

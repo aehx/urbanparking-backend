@@ -91,4 +91,26 @@ router.put("/update/:token", (req, res) => {
   });
 });
 
+// ADD FAVORIS
+
+router.put("/favoris/:token", (req, res) => {
+  User.findOne({ token: req.params.token }).then((user) => {
+    if (user.favoris.includes(req.body.parkId)) {
+      User.updateOne(
+        { token: req.params.token },
+        { $pull: { favoris: req.body.parkId } }
+      ).then(() => {
+        res.json({ result: true });
+      });
+    } else {
+      User.updateOne(
+        { token: req.params.token },
+        { $push: { favoris: req.body.parkId } }
+      ).then(() => {
+        res.json({ result: true });
+      });
+    }
+  });
+});
+
 module.exports = router;

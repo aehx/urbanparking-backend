@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const { checkbody } = require("../module/checkbody");
-const Review = require("../models/review");
+const Review = require("../models/parkReview");
 const User = require("../models/user");
 
 // ROUTE
@@ -9,7 +9,7 @@ const User = require("../models/user");
 // POST REVIEW
 
 router.post("/post", (req, res) => {
-  if (!checkbody(req.body, ["notation", "content"])) {
+  if (!checkbody(req.body, ["notation", "content", "parking"])) {
     res.json({ result: false, error: "Missing or empty fields" });
     return;
   }
@@ -19,6 +19,7 @@ router.post("/post", (req, res) => {
     }
     const newReview = new Review({
       author: user._id,
+      parking: req.body.parking,
       content: req.body.content,
       notation: req.body.notation,
       creation_Date: new Date(),
@@ -48,8 +49,8 @@ router.get("/all/:token", (req, res) => {
 
 // DELETE
 
-router.delete("/", (req, res) => {
-  if (!checkBody(req.body, ["token", "reviewId"])) {
+router.delete("/delete", (req, res) => {
+  if (!checkbody(req.body, ["token", "reviewId"])) {
     res.json({ result: false, error: "Missing or empty fields" });
     return;
   }
