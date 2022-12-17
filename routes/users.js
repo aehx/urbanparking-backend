@@ -84,8 +84,10 @@ router.post("/signin", (req, res) => {
 
 router.put("/update/:token", (req, res) => {
   const { token } = req.params;
-  User.updateOne({ token }, req.body).then((data) => {
-    res.json({ result: true, data });
+  User.updateOne({ token }, req.body).then(() => {
+    User.findOne({ token }).then((data) => {
+      res.json({ result: data });
+    });
   });
 });
 
