@@ -97,6 +97,7 @@ router.put("/favoris/:token", (req, res) => {
   console.log(req.body);
   User.findOne({ token: req.params.token }).then((user) => {
     if (user.favoris.includes(req.body.park)) {
+      console.log("OUI", req.body);
       User.updateOne(
         { token: req.params.token },
         { $pull: { favoris: req.body } }
@@ -104,6 +105,7 @@ router.put("/favoris/:token", (req, res) => {
         res.json({ result: true });
       });
     } else {
+      console.log("NON", req.body);
       User.updateOne(
         { token: req.params.token },
         { $push: { favoris: req.body } }
