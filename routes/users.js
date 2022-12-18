@@ -100,14 +100,14 @@ router.put("/favoris/:token", (req, res) => {
         { token: req.params.token },
         { $pull: { favoris: req.body.park } }
       ).then(() => {
-        res.json({ result: true, parkId: req.body.park });
+        res.json({ result: true, park: req.body.park });
       });
     } else {
       User.updateOne(
         { token: req.params.token },
         { $push: { favoris: req.body.park } }
       ).then(() => {
-        res.json({ result: true });
+        res.json({ result: true, park: req.body.park });
       });
     }
   });
