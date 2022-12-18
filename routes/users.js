@@ -94,20 +94,21 @@ router.put("/update/:token", (req, res) => {
 // ADD FAVORIS
 
 router.put("/favoris/:token", (req, res) => {
+  console.log(req.body);
   User.findOne({ token: req.params.token }).then((user) => {
     if (user.favoris.includes(req.body.park)) {
       User.updateOne(
         { token: req.params.token },
         { $pull: { favoris: req.body.park } }
       ).then(() => {
-        res.json({ result: true, park: req.body.park });
+        res.json({ result: true });
       });
     } else {
       User.updateOne(
         { token: req.params.token },
         { $push: { favoris: req.body.park } }
       ).then(() => {
-        res.json({ result: true, park: req.body.park });
+        res.json({ result: true });
       });
     }
   });
