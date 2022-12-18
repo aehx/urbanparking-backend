@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
 
+const parkingSchema = mongoose.Schema({
+  name: String,
+  latitude: Number,
+  longitude: Number,
+  id: String,
+  horaire: String,
+});
 const userSchema = mongoose.Schema({
   username: String,
   firstname: String,
@@ -9,7 +16,7 @@ const userSchema = mongoose.Schema({
   address: String,
   postal: Number,
   password: String,
-  favoris: [],
+  favoris: [parkingSchema],
   token: String,
 });
 
