@@ -100,7 +100,7 @@ router.put("/favoris/:token", (req, res) => {
         { token: req.params.token },
         { $pull: { favoris: req.body.parkId } }
       ).then(() => {
-        res.json({ result: true });
+        res.json({ result: true, parkId: req.body.parkId });
       });
     } else {
       User.updateOne(
@@ -110,6 +110,14 @@ router.put("/favoris/:token", (req, res) => {
         res.json({ result: true });
       });
     }
+  });
+});
+
+// GET FAVORIS
+
+router.get("/favoris/:token", (req, res) => {
+  User.findOne({ token: req.params.token }).then((user) => {
+    res.json({ result: true, favoris: user.favoris });
   });
 });
 
