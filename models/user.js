@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
   address: String,
   postal: Number,
   password: String,
-  favoris: [String],
+  favoris: [],
   token: String,
 });
 
