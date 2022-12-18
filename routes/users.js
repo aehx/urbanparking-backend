@@ -94,21 +94,18 @@ router.put("/update/:token", (req, res) => {
 // ADD FAVORIS
 
 router.put("/favoris/:token", (req, res) => {
-  console.log(req.body);
   User.findOne({ token: req.params.token }).then((user) => {
-    if (user.favoris.includes(req.body.park)) {
-      console.log("OUI", req.body);
+    if (user.favoris.includes(req.body.parkId)) {
       User.updateOne(
         { token: req.params.token },
-        { $pull: { favoris: req.body } }
+        { $pull: { favoris: req.body.parkId } }
       ).then(() => {
-        res.json({ result: true });
+        res.json({ result: true, parkId: req.body.parkId });
       });
     } else {
-      console.log("NON", req.body);
       User.updateOne(
         { token: req.params.token },
-        { $push: { favoris: req.body } }
+        { $push: { favoris: req.body.parkId } }
       ).then(() => {
         res.json({ result: true });
       });
