@@ -95,17 +95,17 @@ router.put("/update/:token", (req, res) => {
 
 router.put("/favoris/:token", (req, res) => {
   User.findOne({ token: req.params.token }).then((user) => {
-    if (user.favoris.includes(req.body.parkId)) {
+    if (user.favoris.includes(req.body.park)) {
       User.updateOne(
         { token: req.params.token },
-        { $pull: { favoris: req.body.parkId } }
+        { $pull: { favoris: req.body.park } }
       ).then(() => {
-        res.json({ result: true, parkId: req.body.parkId });
+        res.json({ result: true, parkId: req.body.park });
       });
     } else {
       User.updateOne(
         { token: req.params.token },
-        { $push: { favoris: req.body.parkId } }
+        { $push: { favoris: req.body.park } }
       ).then(() => {
         res.json({ result: true });
       });
