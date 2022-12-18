@@ -99,14 +99,14 @@ router.put("/favoris/:token", (req, res) => {
     if (user.favoris.includes(req.body.park)) {
       User.updateOne(
         { token: req.params.token },
-        { $pull: { favoris: req.body.park } }
+        { $pull: { favoris: req.body } }
       ).then(() => {
         res.json({ result: true });
       });
     } else {
       User.updateOne(
         { token: req.params.token },
-        { $push: { favoris: req.body.park } }
+        { $push: { favoris: req.body } }
       ).then(() => {
         res.json({ result: true });
       });
