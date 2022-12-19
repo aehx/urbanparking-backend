@@ -32,19 +32,12 @@ router.post("/post", (req, res) => {
 
 // GET REVIEW
 
-router.get("/all/:token", (req, res) => {
-  User.findOne({ token: req.params.token }).then((user) => {
-    if (user === null) {
-      res.json({ result: false, error: "User not found" });
-      return;
-    }
-
-    Review.find()
-      .populate("author")
-      .then((review) => {
-        res.json({ result: true, review });
-      });
-  });
+router.get("/all/:id", (req, res) => {
+  Review.find({ parking: req.params.id })
+    .populate("author")
+    .then((review) => {
+      res.json({ result: true, review });
+    });
 });
 
 // DELETE
