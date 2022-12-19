@@ -9,7 +9,7 @@ const User = require("../models/user");
 // POST REVIEW
 
 router.post("/post", (req, res) => {
-  if (!checkbody(req.body, ["notation", "content", "parking"])) {
+  if (!checkbody(req.body, ["content", "parking"])) {
     res.json({ result: false, error: "Missing or empty fields" });
     return;
   }
@@ -21,7 +21,6 @@ router.post("/post", (req, res) => {
       author: user._id,
       parking: req.body.parking,
       content: req.body.content,
-      notation: req.body.notation,
       creation_Date: new Date(),
     });
     newReview.save().then((data) => {
