@@ -8,7 +8,6 @@ const User = require("../models/user");
 // SIGNUP USER
 
 router.post("/signup", (req, res) => {
-  console.log("outside", req.body);
   if (!checkbody(req.body, ["username", "password", "email"])) {
     res.json({ result: false, error: "missing or empty fields" });
     return;
@@ -26,7 +25,6 @@ router.post("/signup", (req, res) => {
   User.findOne({ username: { $regex: new RegExp(username, "i") } }).then(
     (data) => {
       if (data === null) {
-        console.log("inside ", req.body);
         const hash = bcrypt.hashSync(password, 10);
         const newUser = new User({
           username,
@@ -100,7 +98,7 @@ router.put("/favoris/:token", (req, res) => {
         { token: req.params.token },
         { $pull: { favoris: req.body.parkId } }
       ).then(() => {
-        res.json({ result: true, parkId: req.body.parkId });
+        res.json({ result: true });
       });
     } else {
       User.updateOne(
