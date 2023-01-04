@@ -47,7 +47,7 @@ router.post("/signup", (req, res) => {
           });
         });
       } else {
-        res.json({ result: false, error: "User already exist" });
+        res.json({ result: false, error: "Utilisateur déjà existant" });
       }
     }
   );
@@ -72,7 +72,7 @@ router.post("/signin", (req, res) => {
           firstname: data.firstname,
         });
       } else {
-        res.json({ result: false, error: "User not found" });
+        res.json({ result: false, error: "Utilisateur inconnu" });
       }
     }
   );
@@ -89,7 +89,7 @@ router.put("/update/:token", (req, res) => {
   });
 });
 
-// ADD FAVORIS
+// ADD FAVORITE
 
 router.put("/favoris/:token", (req, res) => {
   User.findOne({ token: req.params.token }).then((user) => {

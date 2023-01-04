@@ -8,9 +8,9 @@ const User = require("../models/user");
 
 // POST REVIEW
 
-router.post("/post", (req, res) => {
+router.post("/postReview", (req, res) => {
   if (!checkbody(req.body, ["content", "parking"])) {
-    res.json({ result: false, error: "Missing or empty fields" });
+    res.json({ result: false, error: "champs non remplis ou ommis" });
     return;
   }
   User.findOne({ token: req.body.token }).then((user) => {
@@ -31,7 +31,7 @@ router.post("/post", (req, res) => {
 
 // GET REVIEW
 
-router.get("/all/:id", (req, res) => {
+router.get("/getReview/:id", (req, res) => {
   Review.find({ parking: req.params.id })
     .populate("author")
     .then((review) => {
@@ -41,12 +41,7 @@ router.get("/all/:id", (req, res) => {
 
 // DELETE
 
-router.delete("/delete", (req, res) => {
-  if (!checkbody(req.body, ["token", "reviewId"])) {
-    res.json({ result: false, error: "Missing or empty fields" });
-    return;
-  }
-
+router.delete("/deleteReview/:token", (req, res) => {
   User.findOne({ token: req.body.token }).then((user) => {
     if (user === null) {
       res.json({ result: false, error: "User not found" });
@@ -72,10 +67,6 @@ router.delete("/delete", (req, res) => {
         });
       });
   });
-});
-
-router.post("/", (req, res) => {
-  res.send("hello");
 });
 
 module.exports = router;
