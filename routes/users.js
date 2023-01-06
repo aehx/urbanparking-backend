@@ -9,7 +9,7 @@ const User = require("../models/user");
 
 router.post("/signup", (req, res) => {
   if (!checkbody(req.body, ["username", "password", "email"])) {
-    res.json({ result: false, error: "missing or empty fields" });
+    res.json({ result: false, error: "champs non remplis ou ommis" });
     return;
   }
   const {
@@ -57,7 +57,7 @@ router.post("/signup", (req, res) => {
 
 router.post("/signin", (req, res) => {
   if (!checkbody(req.body, ["username", "password"])) {
-    res.json({ result: false, error: "Missing or empty fields" });
+    res.json({ result: false, error: "champs non remplis ou ommis" });
     return;
   }
   const { username, password } = req.body;

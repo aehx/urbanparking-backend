@@ -31,7 +31,7 @@ router.post("/postReview", (req, res) => {
 
 // GET REVIEW
 
-router.get("/getReview/:id", (req, res) => {
+router.get("/all/:id", (req, res) => {
   Review.find({ parking: req.params.id })
     .populate("author")
     .then((review) => {
