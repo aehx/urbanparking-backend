@@ -41,6 +41,7 @@ router.get("/all/:id", (req, res) => {
 
 router.delete("/deleteReview/:token", (req, res) => {
   User.findOne({ token: req.body.token }).then((user) => {
+    console.log(req.body.token);
     if (user === null) {
       res.json({ result: false, error: "User not found", user });
       return;
