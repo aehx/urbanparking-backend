@@ -20,20 +20,46 @@ describe("perform CRUD operation", () => {
     expect(res.statusCode).toBe(200);
   });
 
-  test("POST /signin", async () => {
-    const res = await request(app).post("/users/signup").send({
-      username: "user",
-      password: "password",
-    });
-    expect(res.statusCode).toBe(200);
-  });
-
   test("POST /signup : without required fields", async () => {
     const res = await request(app).post("/users/signup").send({
       username: process.env.TEST_SIGNIN_USERNAME,
       password: process.env.TEST_SIGNIN_PASSWORD,
     });
     expect(res.body.result).toBe(false);
+  });
+
+  test("POST /signup : result true with and return userInfos", async () => {
+    const userInfos = {
+      username: "testUsername",
+      email: "test@gmail.com",
+      password: "1234",
+      firstname: "testFirstname",
+      city: "testCity",
+      address: "testAddress",
+      postal: 1234,
+    };
+
+    const res = await request(app).post("/users/signup").send(userInfos);
+    expect(res.body.result).toBe(true);
+    expect(res.body.username).toBe("testUsername");
+    expect(res.body.firstname).toBe("testFirstname");
+  });
+
+  test("POST /signin", async () => {
+    const res = await request(app).post("/users/signin").send({
+      username: "user",
+      password: "password",
+    });
+    expect(res.statusCode).toBe(200);
+  });
+
+  test("POST /signin : result true and return userInfos", async () => {
+    const res = await request(app).post("/users/signin").send({
+      username: process.env.TEST_SIGNIN_USERNAME,
+      password: process.env.TEST_SIGNIN_PASSWORD,
+    });
+    expect(res.body.result).toBe(true);
+    expect(res.body.username).toBe(process.env.TEST_SIGNIN_USERNAME);
   });
 
   test("POST /signin : empty fields", async () => {
