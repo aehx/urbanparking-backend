@@ -39,8 +39,6 @@ router.get("/all/:id", (req, res) => {
     });
 });
 
-// DELETE
-
 router.delete("/deleteReview/:token", (req, res) => {
   User.findOne({ token: req.body.token }).then((user) => {
     if (user === null) {
