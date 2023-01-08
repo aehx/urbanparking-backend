@@ -39,7 +39,11 @@ router.get("/all/:id", (req, res) => {
     });
 });
 
-router.delete("/deleteReview/:token", (req, res) => {
+router.delete("/deleteReview", (req, res) => {
+  if (!checkbody(req.body, ["token", "reviewId"])) {
+    res.json({ result: false, error: "champs non remplis ou ommis" });
+    return;
+  }
   User.findOne({ token: req.body.token }).then((user) => {
     if (user === null) {
       res.json({
