@@ -42,7 +42,7 @@ router.get("/all/:id", (req, res) => {
 router.delete("/deleteReview/:token", (req, res) => {
   User.findOne({ token: req.body.token }).then((user) => {
     if (user === null) {
-      res.json({ result: false, error: "User not found" });
+      res.json({ result: false, error: "User not found", user });
       return;
     }
 
